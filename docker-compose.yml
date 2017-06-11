@@ -6,6 +6,20 @@ services:
       service: base_app
     working_dir: /web-design-standards
     command: npm run watch
+  docs:
+    extends:
+      file: docker-services.yml
+      service: base_app
+    working_dir: /web-design-standards-docs
+    command: npm run watch
+  jekyll:
+    extends:
+      file: docker-services.yml
+      service: base_app
+    working_dir: /web-design-standards-docs
+    command: npm start -- -H 0.0.0.0 --force_polling
+    ports:
+      - 4000:4000
   fractal:
     extends:
       file: docker-services.yml

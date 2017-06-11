@@ -14,6 +14,7 @@ docker-compose up
 Then visit any of:
 
   * http://localhost:3000/ for the fractal site.
+  * http://localhost:4000/ for the USWDS docs.
 
 ## Sub-repositories
 
