@@ -1,0 +1,10 @@
+version: '2'
+services:
+  base_app:
+    build: .
+    volumes:
+      - ./web-design-standards:/web-design-standards
+      - ./web-design-standards-docs:/web-design-standards-docs
+      - ./scripts:/scripts
+      - uswds-node-modules:/web-design-standards/node_modules/
+      - uswds-docs-node-modules:/web-design-standards-docs/node_modules/
