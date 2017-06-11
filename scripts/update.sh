@@ -15,6 +15,7 @@ npm run build:package
 
 cd /web-design-standards-docs
 
-ln -sf /web-design-standards node_modules/uswds
+rm -f node_modules/uswds
+ln -s /web-design-standards node_modules/uswds
 
 npm install --unsafe-perm
