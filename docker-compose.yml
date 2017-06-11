@@ -5,6 +5,12 @@ services:
       file: docker-services.yml
       service: base_app
     working_dir: /web-design-standards
+    command: npm run watch
+  fractal:
+    extends:
+      file: docker-services.yml
+      service: base_app
+    working_dir: /web-design-standards
     command: npm start
     ports:
       - 3000:3000

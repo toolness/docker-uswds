@@ -8,3 +8,10 @@ services:
       - ./scripts:/scripts
       - uswds-node-modules:/web-design-standards/node_modules/
       - uswds-docs-node-modules:/web-design-standards-docs/node_modules/
+    environment:
+      # Some of USWDS's development build pipelining uses `nswatch` to watch
+      # for filesystem changes; this tool, in turn, uses `chokidar` to
+      # do the actual watching, and its default non-polling based
+      # watcher doesn't always play well with Docker setups, so we'll
+      # force it to use polling by default.
+      - CHOKIDAR_USEPOLLING=true
