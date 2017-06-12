@@ -48,6 +48,20 @@ Whenever you update this repository or any of the
 sub-repositories--specifically, if the dependencies in any of them
 changed--you will want to re-run `bash update.sh`.
 
+## Running other commands
+
+If you want to run other `npm` commands or other scripts within
+the context of Docker, the easiest way to do this is by running a
+shell inside the main container:
+
+```
+docker-compose run app bash
+```
+
+Once you do this, you'll be in an interactive shell within the main
+container. You can `cd /web-design-standards` to visit the USWDS repository
+or `cd /web-design-standards-docs` to visit the documentation repository.
+
 [Docker]: https://www.docker.com/community-edition
 [git for Windows]: https://git-for-windows.github.io/
 [U.S. Web Design Standards]: https://github.com/18F/web-design-standards
