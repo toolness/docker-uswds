@@ -4,14 +4,7 @@ services:
     extends:
       file: docker-services.yml
       service: base_app
-    working_dir: /web-design-standards
-    command: npm run watch
-  docs:
-    extends:
-      file: docker-services.yml
-      service: base_app
-    working_dir: /web-design-standards-docs
-    command: node /scripts/watch-docs.js
+    command: node /scripts/watch.js
   jekyll:
     extends:
       file: docker-services.yml
