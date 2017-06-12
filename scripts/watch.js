@@ -74,7 +74,7 @@ function run(cwd, command, args) {
 
 // Run the given npm command using 'npm run', in the given directory.
 function npmRun(cwd, cmd) {
-  return run(cwd, 'npm', ['run', cmd]);
+  return run(cwd, 'npm', ['run', cmd, '--silent']);
 }
 
 const jekyll = () => run(
