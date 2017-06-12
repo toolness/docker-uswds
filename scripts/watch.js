@@ -108,6 +108,19 @@ watch(USWDS, "src/img", buildDocsImg);
 // Fonts
 watch(USWDS, "src/fonts", () => npmRun(DOCS, "build-fonts").then(jekyll));
 
+// Other Jekyll files
+watch(DOCS, [
+  '_components',
+  '_data',
+  '_drafts',
+  '_includes',
+  '_layouts',
+  '_plugins',
+  '_posts',
+  'pages',
+  '_config.yml',
+], jekyll);
+
 console.log('Now watching files for changes. Feel free to edit them!');
 
 const app = express();
