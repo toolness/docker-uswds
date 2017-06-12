@@ -1,9 +1,11 @@
 const child_process = require('child_process');
+const chokidar = require('chokidar');
+const express = require('express');
 
+const PORT = process.env.PORT || 4000;
+const JEKYLL_FLAGS = process.env.JEKYLL_FLAGS || '';
 const USWDS = '/web-design-standards';
 const DOCS = '/web-design-standards-docs';
-
-const chokidar = require(USWDS + '/node_modules/chokidar');
 
 // Watch the given files in the given directory for changes, running
 // the given callback when anything changes.
@@ -47,14 +49,15 @@ function watch(cwd, files, cb) {
   watcher.on('all', onFileChanged);
 }
 
-// Run the given command using 'npm run', in the given directory.
+// Run the given command with the given args in the given directory.
 //
 // Returns a Promise that resolves once the command is finished, or
 // rejects if the process errored or exited with a non-zero status code.
-function npmRun(cwd, cmd) {
+function run(cwd, command, args) {
+  const cmdline = `${cwd}/${command} ${args.join(' ')}`;
   return new Promise((resolve, reject) => {
-    console.log(`Running ${cwd}/npm ${cmd}.`);
-    const child = child_process.spawn('npm', ['run', cmd], {
+    console.log(`Running ${cmdline}.`);
+    const child = child_process.spawn(command, args, {
       cwd: cwd,
       stdio: 'inherit',
     });
@@ -63,11 +66,21 @@ function npmRun(cwd, cmd) {
       if (code === 0) {
         resolve();
       } else {
-        reject(`npm ${cmd} exited with code ${code}!`);
+        reject(`${cmdline} exited with code ${code}!`);
       }
     });
   });
 }
+
+// Run the given npm command using 'npm run', in the given directory.
+function npmRun(cwd, cmd) {
+  return run(cwd, 'npm', ['run', cmd]);
+}
+
+const jekyll = () => run(
+  DOCS, 'jekyll',
+  ['build', '--incremental'].concat(JEKYLL_FLAGS.split(' '))
+);
 
 // Make it easy for Docker to terminate us.
 process.on('SIGTERM', () => {
@@ -76,23 +89,31 @@ process.on('SIGTERM', () => {
 });
 
 // CSS
-const buildDocsCss = () => npmRun(DOCS, "build-css");
+const buildDocsCss = () => npmRun(DOCS, "build-css").then(jekyll);
 watch(USWDS, "src/stylesheets/{components,core,elements,}/*.scss",
       () => npmRun(USWDS, 'build:css').then(buildDocsCss));
 watch(DOCS, "css/**/*.scss", buildDocsCss);
 
 // JS
-const buildDocsJs = () => npmRun(DOCS, "build-js");
+const buildDocsJs = () => npmRun(DOCS, "build-js").then(jekyll);
 watch(USWDS, "src/js/**/*.js",
       () => npmRun(USWDS, 'build:js').then(buildDocsJs));
 watch(DOCS, "js/**/*.js", buildDocsJs);
 
 // Images
-const buildDocsImg = () => npmRun(DOCS, "build-img");
+const buildDocsImg = () => npmRun(DOCS, "build-img").then(jekyll);
 watch(DOCS, "img", buildDocsImg);
 watch(USWDS, "src/img", buildDocsImg);
 
 // Fonts
-watch(USWDS, "src/fonts", () => npmRun(DOCS, "build-fonts"));
+watch(USWDS, "src/fonts", () => npmRun(DOCS, "build-fonts").then(jekyll));
 
 console.log('Now watching files for changes. Feel free to edit them!');
+
+const app = express();
+
+app.use(express.static(`${DOCS}/_site`));
+
+app.listen(PORT, () => {
+  console.log(`Serving Jekyll site on port ${PORT}.`);
+});

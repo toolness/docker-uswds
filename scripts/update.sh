@@ -2,6 +2,9 @@
 
 set -e
 
+cd /scripts
+npm install
+
 cd /web-design-standards
 
 npm install --unsafe-perm
@@ -20,7 +23,5 @@ ln -s /web-design-standards node_modules/uswds
 
 npm install --unsafe-perm
 
-# Let's build all the static assets jekyll will expect to exist,
-# to make sure we don't have a race condition when running
-# `docker-compose up`.
 npm run prestart
+jekyll build --incremental ${JEKYLL_FLAGS}

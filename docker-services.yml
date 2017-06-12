@@ -15,3 +15,4 @@ services:
       # watcher doesn't always play well with Docker setups, so we'll
       # force it to use polling by default.
       - CHOKIDAR_USEPOLLING=true
+      - JEKYLL_FLAGS=--drafts --future

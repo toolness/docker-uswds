@@ -4,17 +4,8 @@ services:
     extends:
       file: docker-services.yml
       service: base_app
-    command: node /scripts/watch.js
-  jekyll:
-    extends:
-      file: docker-services.yml
-      service: base_app
-    working_dir: /web-design-standards-docs
-    # Not using `npm start` here because it runs `prestart` which
-    # runs `gulp build` which we don't care about because we're already
-    # running gulp separately at the same time and it could all cause
-    # weird explosions.
-    command: jekyll serve --drafts --future -H 0.0.0.0 --force_polling --incremental
+    working_dir: /scripts
+    command: node watch.js
     ports:
       - 4000:4000
   fractal:
