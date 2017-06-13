@@ -19,3 +19,5 @@ services:
 volumes:
   uswds-node-modules:
   uswds-docs-node-modules:
+  scripts-node-modules:
+  root:
