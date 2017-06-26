@@ -16,3 +16,5 @@ WORKDIR /
 
 # Hacky equivalent for https://github.com/jekyll/jekyll-redirect-from/pull/155
 COPY fixed-jekyll-redirect-from-redirect.html /usr/local/bundle/gems/jekyll-redirect-from-0.12.1/lib/jekyll-redirect-from/redirect.html
+
+RUN npm install -g yarn

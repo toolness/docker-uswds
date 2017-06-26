@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 4000;
 const JEKYLL_FLAGS = process.env.JEKYLL_FLAGS || '';
 const USWDS = '/web-design-standards';
 const DOCS = '/web-design-standards-docs';
+const NPM_CMD = process.env.NPM_CMD || 'npm';
 
 // Watch the given files in the given directory for changes, running
 // the given callback when anything changes.
@@ -74,7 +75,7 @@ function run(cwd, command, args) {
 
 // Run the given npm command using 'npm run', in the given directory.
 function npmRun(cwd, cmd) {
-  return run(cwd, 'npm', ['run', cmd, '--silent']);
+  return run(cwd, NPM_CMD, ['run', cmd, '--silent']);
 }
 
 const jekyll = () => run(
