@@ -18,3 +18,5 @@ WORKDIR /
 COPY fixed-jekyll-redirect-from-redirect.html /usr/local/bundle/gems/jekyll-redirect-from-0.12.1/lib/jekyll-redirect-from/redirect.html
 
 RUN npm install -g yarn
+
+ENV PATH "$PATH:./node_modules/.bin"
