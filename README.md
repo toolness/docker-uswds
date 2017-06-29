@@ -48,6 +48,23 @@ Whenever you update this repository or any of the
 sub-repositories--specifically, if the dependencies in any of them
 changed--you will want to re-run `bash update.sh`.
 
+## Disabling Jekyll
+
+Sometimes you may want to work only on the design standards, without
+waiting for Jekyll to build (which can take some time). To do this,
+create a `docker-compose.override.yml` file in the root of the
+repository with the following content:
+
+```yaml
+version: '2'
+services:
+  app:
+    environment:
+      DISABLE_JEKYLL: yup
+```
+
+Then run `docker-compose up` again.
+
 ## Running other commands
 
 If you want to run other `npm` commands or other scripts within

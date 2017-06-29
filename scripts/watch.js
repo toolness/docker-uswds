@@ -3,6 +3,7 @@ const chokidar = require('chokidar');
 const express = require('express');
 
 const PORT = process.env.PORT || 4000;
+const DISABLE_JEKYLL = 'DISABLE_JEKYLL' in process.env;
 const JEKYLL_FLAGS = process.env.JEKYLL_FLAGS || '';
 const USWDS = '/web-design-standards';
 const DOCS = '/web-design-standards-docs';
@@ -78,10 +79,15 @@ function npmRun(cwd, cmd) {
   return run(cwd, NPM_CMD, ['run', cmd, '--silent']);
 }
 
-const jekyll = () => run(
-  DOCS, 'jekyll',
-  ['build', '--incremental'].concat(JEKYLL_FLAGS.split(' '))
-);
+const jekyll = () => {
+  if (DISABLE_JEKYLL) {
+    console.log("Running Jekyll is disabled, so skipping it.");
+    return Promise.resolve();
+  } else {
+    return run(DOCS, 'jekyll',
+               ['build', '--incremental'].concat(JEKYLL_FLAGS.split(' ')));
+  }
+};
 
 // Make it easy for Docker to terminate us.
 process.on('SIGTERM', () => {
@@ -124,10 +130,12 @@ watch(DOCS, [
 
 console.log('Now watching files for changes. Feel free to edit them!');
 
-const app = express();
+if (!DISABLE_JEKYLL) {
+  const app = express();
 
-app.use(express.static(`${DOCS}/_site`));
+  app.use(express.static(`${DOCS}/_site`));
 
-app.listen(PORT, () => {
-  console.log(`Serving Jekyll site on port ${PORT}.`);
-});
+  app.listen(PORT, () => {
+    console.log(`Serving Jekyll site on port ${PORT}.`);
+  });
+}
