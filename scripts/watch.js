@@ -4,6 +4,8 @@ const express = require('express');
 
 const PORT = process.env.PORT || 4000;
 const DISABLE_JEKYLL = 'DISABLE_JEKYLL' in process.env;
+const JEKYLL_INCREMENTAL = 'DISABLE_JEKYLL_INCREMENTAL' in process.env
+                           ? '' : '--incremental';
 const JEKYLL_FLAGS = process.env.JEKYLL_FLAGS || '';
 const USWDS = '/web-design-standards';
 const DOCS = '/web-design-standards-docs';
@@ -85,7 +87,8 @@ const jekyll = () => {
     return Promise.resolve();
   } else {
     return run(DOCS, 'jekyll',
-               ['build', '--incremental'].concat(JEKYLL_FLAGS.split(' ')));
+               ['build',
+                JEKYLL_INCREMENTAL].concat(JEKYLL_FLAGS.split(' ')));
   }
 };
 
