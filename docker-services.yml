@@ -10,6 +10,7 @@ services:
       - uswds-docs-node-modules:/web-design-standards-docs/node_modules/
       - scripts-node-modules:/scripts/node_modules/
       - root:/root/
+      - bundle:/usr/local/bundle/
     environment:
       # Some of USWDS's development build pipelining uses `nswatch` to watch
       # for filesystem changes; this tool, in turn, uses `chokidar` to

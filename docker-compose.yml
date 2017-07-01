@@ -22,3 +22,4 @@ volumes:
   uswds-docs-node-modules:
   scripts-node-modules:
   root:
+  bundle:
