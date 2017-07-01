@@ -68,9 +68,11 @@ Then run `docker-compose up` again.
 ## Disabling Jekyll incremental builds
 
 It seems Jekyll's incremental build system doesn't work well with
-certain kinds of edits; if you need to disable it, add
-`DISABLE_JEKYLL_INCREMENTAL: yup` to your environment via the
-override file described above.
+certain kinds of edits, and it even [breaks some templates][]; if you
+need to disable it, add `DISABLE_JEKYLL_INCREMENTAL: yup` to your
+environment via the override file described above.
+
+[breaks some templates]: https://github.com/jekyll/jekyll/issues/4112
 
 ## Running other commands
 
