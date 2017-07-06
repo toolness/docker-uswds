@@ -26,4 +26,9 @@ rm -rf node_modules/uswds
 ln -s /web-design-standards node_modules/uswds
 
 ${NPM_CMD} run prestart
+
+# Force Jekyll to rebuild its incremental regeneration metadata from
+# scratch, just in case anything is out of sync.
+rm -f .jekyll-metadata
+
 jekyll build --incremental ${JEKYLL_FLAGS}
