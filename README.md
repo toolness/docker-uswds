@@ -74,6 +74,15 @@ environment via the override file described above.
 
 [breaks some templates]: https://github.com/jekyll/jekyll/issues/4112
 
+## Running all the tests
+
+To easily run all the tests for both the Standards and the documentation,
+run:
+
+```
+bash test-everything.sh
+```
+
 ## Running other commands
 
 If you want to run other `npm` commands or other scripts within
