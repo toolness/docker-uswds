@@ -2,3 +2,4 @@ web-design-standards/
 web-design-standards-docs/
 scripts/node_modules/
 docker-compose.override.yml
+cloud-deployer/static/
