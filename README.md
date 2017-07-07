@@ -88,7 +88,50 @@ Once you do this, you'll be in an interactive shell within the main
 container. You can `cd /web-design-standards` to visit the USWDS repository
 or `cd /web-design-standards-docs` to visit the documentation repository.
 
+## Deploying to S3
+
+It's possible to deploy your build fractal site and documentation site
+to S3. You'll need the [AWS CLI][]. If you work for 18F, you will
+probably want to set up an [AWS sandbox account][], too.
+
+To generate the requisite static files, run:
+
+```
+bash update.sh
+bash collect-static-files.sh
+```
+
+Now all your static files will be in the `collected-static-files` directory,
+with the Standards docs in the root and the fractal site under the
+`fractal` subdirectory.
+
+The rest of these instructions assume your bucket name is `${BUCKET_NAME}`.
+You'll want to change it to the actual name of your bucket.
+
+You can create a S3 bucket and configure it as a website with:
+
+```
+aws s3api create-bucket --bucket ${BUCKET_NAME} --region us-east-1
+aws s3 website s3://${BUCKET_NAME} --index-document index.html
+```
+
+Then you can sync your static files with the bucket using:
+
+```
+aws s3 sync collected-static-files s3://${BUCKET_NAME} --acl public-read
+```
+
+Now your Standards docs will be at the following URL:
+
+```
+http://${BUCKET_NAME}.s3-website-us-east-1.amazonaws.com/
+```
+
+And your fractal site will be at the `fractal` subdirectory under that URL.
+
 [Docker]: https://www.docker.com/community-edition
 [git for Windows]: https://git-for-windows.github.io/
 [U.S. Web Design Standards]: https://github.com/18F/web-design-standards
 [documentation]: https://github.com/18F/web-design-standards-docs
+[AWS CLI]: https://aws.amazon.com/cli/
+[AWS sandbox account]: https://before-you-ship.18f.gov/infrastructure/sandbox/
