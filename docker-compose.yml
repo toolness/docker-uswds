@@ -6,6 +6,8 @@ services:
       service: base_app
     working_dir: /scripts
     command: node watch.js
+    environment:
+      - REMOTE_CHROME_URL=http://chrome:9222
     ports:
       - 4000:4000
   fractal:
@@ -17,6 +19,11 @@ services:
     stop_signal: SIGKILL
     ports:
       - 3000:3000
+  chrome:
+    image: yukinying/chrome-headless-browser:61.0.3141.7
+    cap_add:
+      - SYS_ADMIN
+    stop_signal: SIGKILL
 volumes:
   uswds-node-modules:
   uswds-docs-node-modules:
