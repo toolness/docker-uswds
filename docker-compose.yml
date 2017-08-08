@@ -8,6 +8,7 @@ services:
     command: node watch.js
     environment:
       - REMOTE_CHROME_URL=http://chrome:9222
+      - FRACTAL_BASE_URL=http://fractal:3000
     ports:
       - 4000:4000
   fractal:

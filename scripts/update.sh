@@ -8,6 +8,7 @@ ${NPM_CMD} install
 cd /web-design-standards
 
 ${NPM_CMD} install --unsafe-perm
+fractal build
 
 cd /web-design-standards-docs
 
@@ -30,5 +31,10 @@ ${NPM_CMD} run prestart
 # Force Jekyll to rebuild its incremental regeneration metadata from
 # scratch, just in case anything is out of sync.
 rm -f .jekyll-metadata
+
+# When we build the docs site, don't pull from a fractal server, b/c
+# we're probably not running one; and anyways, we just built the
+# static fractal site.
+unset FRACTAL_BASE_URL
 
 jekyll build --incremental ${JEKYLL_FLAGS}
