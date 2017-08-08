@@ -20,3 +20,6 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - JEKYLL_FLAGS=--drafts --future
       - NPM_CMD=yarn
+      - LANG=C.UTF-8
+      - LANGUAGE=C.UTF-8
+      - LC_ALL=C.UTF-8
