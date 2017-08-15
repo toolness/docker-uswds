@@ -23,13 +23,18 @@ bundle
 cp /scripts/fixed-jekyll-redirect-from-redirect.html \
   /usr/local/bundle/gems/jekyll-redirect-from-0.12.1/lib/jekyll-redirect-from/redirect.html
 
+export USWDS_PATH="node_modules/uswds"
 
-rm -f node_modules/uswds
+if [[ -L "$USWDS_PATH" ]]
+then
+  # It's a symlink left over from an earlier run; delete it.
+  rm -f $USWDS_PATH
+fi
 
 ${NPM_CMD} install --unsafe-perm
 
-rm -rf node_modules/uswds
-ln -s /web-design-standards node_modules/uswds
+rm -rf $USWDS_PATH
+ln -s /web-design-standards $USWDS_PATH
 
 ${NPM_CMD} run prestart
 
