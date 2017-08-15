@@ -10,6 +10,11 @@ cd /web-design-standards
 ${NPM_CMD} install --unsafe-perm
 fractal build
 
+if [ -n "$DISABLE_JEKYLL" ]; then
+  echo "Jekyll is disabled, so bypassing uswds-docs setup."
+  exit 0
+fi
+
 cd /web-design-standards-docs
 
 bundle
