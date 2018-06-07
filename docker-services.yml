@@ -19,7 +19,7 @@ services:
       # force it to use polling by default.
       - CHOKIDAR_USEPOLLING=true
       - JEKYLL_FLAGS=--drafts --future
-      - NPM_CMD=yarn
+      - NPM_CMD=npm
       - LANG=C.UTF-8
       - LANGUAGE=C.UTF-8
       - LC_ALL=C.UTF-8

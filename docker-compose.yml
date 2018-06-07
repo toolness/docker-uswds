@@ -18,7 +18,7 @@ services:
       file: docker-services.yml
       service: base_app
     working_dir: /web-design-standards
-    command: yarn start
+    command: npm start
     stop_signal: SIGKILL
     ports:
       - 3000:3000
