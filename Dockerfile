@@ -8,6 +8,6 @@ RUN apt-get update && \
 
 WORKDIR /
 
-RUN npm install -g yarn
+RUN npm install -g yarn@1.6.0
 
 ENV PATH "$PATH:./node_modules/.bin"
