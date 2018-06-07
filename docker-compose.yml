@@ -11,6 +11,8 @@ services:
       - FRACTAL_BASE_URL=http://fractal:3000
     ports:
       - 4000:4000
+    depends_on:
+      - chrome
   fractal:
     extends:
       file: docker-services.yml
@@ -21,7 +23,7 @@ services:
     ports:
       - 3000:3000
   chrome:
-    image: yukinying/chrome-headless-browser:61.0.3141.7
+    image: yukinying/chrome-headless-browser:68.0.3440.15
     cap_add:
       - SYS_ADMIN
     stop_signal: SIGKILL
